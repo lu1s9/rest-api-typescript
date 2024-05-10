@@ -1,0 +1,10 @@
+# This project is intended to have a local database container in development
+# environment and a cloud database instance in production.
+
+services:
+  web:
+    build: .
+    ports:
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
