@@ -1,0 +1,24 @@
+meta {
+  name: Get List of Posts
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/posts/
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+assert {
+  res.body: isDefined 
+}
+
+script:post-response {
+  bru.setNextRequest("Create Post")
+  
+}

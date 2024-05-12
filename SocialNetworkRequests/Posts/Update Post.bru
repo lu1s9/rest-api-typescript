@@ -1,0 +1,30 @@
+meta {
+  name: Update Post
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/posts/{{post_id}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "content": "{{newContent}}"
+  }
+}
+
+vars:pre-request {
+  newContent: Este es el post modificado
+}
+
+assert {
+  res.body.content: eq {{newContent}}
+}
+
+script:post-response {
+  bru.setNextRequest("Get Single Post")
+  
+}

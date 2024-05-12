@@ -1,0 +1,30 @@
+meta {
+  name: Create Post
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/posts
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "content": "{{content}}"
+  }
+}
+
+vars:pre-request {
+  content: Mi primer post
+}
+
+assert {
+  res.body.content: eq {{content}}
+}
+
+script:post-response {
+  bru.setEnvVar("post_id", res.body._id)
+  bru.setNextRequest("Update Post")
+}
