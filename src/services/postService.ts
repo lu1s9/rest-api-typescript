@@ -1,15 +1,17 @@
 import IPost from '../interfaces/post.interface';
 import Post from '../models/post.model';
+
 import { CreatePostType } from '../schemas/post.schema';
 
-export const getListPosts = async () => {
-    const posts = await Post.find({}).sort({ createdAt: -1 });
+export const getListPosts = async (id: string) => {
+    const posts = await Post.find({ userId: id });
     return posts;
 };
 
-export const createSinglePost = async (post: CreatePostType) => {
+export const createSinglePost = async (post: CreatePostType, userId: string) => {
     const newPost = new Post({
-        content: post.content
+        content: post.content,
+        userId
     });
 
     const postSaved = await newPost.save();

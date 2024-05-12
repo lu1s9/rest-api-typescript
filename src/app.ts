@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import { routeNotFound } from './middlewares/routeNotFound';
 
 import authRoutes from './routes/auth.routes';
@@ -15,6 +16,7 @@ application.use(
     })
 );
 application.use(express.json());
+application.use(cookieParser());
 
 application.use('/api/', authRoutes);
 application.use('/api/', postRoutes);
