@@ -22,4 +22,4 @@ export const signupSchema = z.object({
     })
 });
 
-export type UserType = z.infer<typeof signupSchema>['body'];
+export type UserInputType = z.infer<typeof signupSchema>['body'];

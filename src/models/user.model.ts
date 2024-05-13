@@ -1,7 +1,6 @@
-import { Schema, model } from 'mongoose';
-import IUser from '../interfaces/user.interface';
+import { InferSchemaType, Schema, model } from 'mongoose';
 
-const userSchema = new Schema<IUser>(
+const userSchema = new Schema(
     {
         email: {
             type: String,
@@ -13,9 +12,9 @@ const userSchema = new Schema<IUser>(
             required: true
         }
     },
-    {
-        timestamps: true
-    }
+    { timestamps: true }
 );
 
-export default model<IUser>('User', userSchema);
+export type UserType = InferSchemaType<typeof userSchema>;
+
+export default model<UserType>('User', userSchema);
