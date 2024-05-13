@@ -2,9 +2,9 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import { createUser, getUserByEmail } from '../services/userService';
 import { signToken } from '../libs/jwt';
-import { UserType } from '../schemas/auth.schema';
+import { UserInputType } from '../schemas/auth.schema';
 
-export const signup = async (req: Request<unknown, unknown, UserType>, res: Response) => {
+export const signup = async (req: Request<unknown, unknown, UserInputType>, res: Response) => {
     const { email, password } = req.body;
 
     const userFound = await getUserByEmail(email);
@@ -19,8 +19,9 @@ export const signup = async (req: Request<unknown, unknown, UserType>, res: Resp
     res.sendStatus(204);
 };
 
-export const login = async (req: Request<unknown, unknown, UserType>, res: Response) => {
+export const login = async (req: Request<unknown, unknown, UserInputType>, res: Response) => {
     const { email, password } = req.body;
+
     const userFound = await getUserByEmail(email);
 
     if (!userFound) {
@@ -34,7 +35,7 @@ export const login = async (req: Request<unknown, unknown, UserType>, res: Respo
         throw new Error(`Invalid email or password`);
     }
 
-    const token = await signToken(userFound._id);
+    const token = await signToken(userFound.id);
     res.cookie('token', token, {
         sameSite: 'none'
     });

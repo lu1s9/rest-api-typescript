@@ -11,9 +11,9 @@ export const checkJwt = (req: RequestExt, res: Response, next: NextFunction) => 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     jwt.verify(token, JWT_SECRET, (error: any, user: any) => {
         if (error) {
-            req.user = undefined;
             return res.status(401).json({ message: 'Token is not valid' });
         }
+
         req.user = user.payload;
         next();
     });

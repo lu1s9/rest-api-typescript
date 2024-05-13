@@ -1,9 +1,6 @@
 import { Request } from 'express';
+import { JwtPayload } from 'jsonwebtoken';
 
 export interface RequestExt extends Request {
-    user?: string | undefined;
-}
-
-export interface IGetUserAuthInfoRequest extends Request {
-    user: string | null;
+    user?: JwtPayload | { id: string };
 }
