@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const createPostSchema = z.object({
+const payload = {
     body: z.object({
         content: z
             .string({
@@ -8,31 +8,29 @@ export const createPostSchema = z.object({
             })
             .min(1, 'Post content must be at least 1 character')
     })
+};
+
+const params = {
+    params: z.object({
+        id: z.string().regex(/^[0-9a-fA-F]{24}$/, 'invalid post ID')
+    })
+};
+
+export const createPostSchema = z.object({
+    ...payload
 });
 
 export const getPostSchema = z.object({
-    params: z.object({
-        id: z.string().regex(/^[0-9a-fA-F]{24}$/, 'invalid ID')
-    })
+    ...params
 });
 
 export const deletePostSchema = z.object({
-    params: z.object({
-        id: z.string().regex(/^[0-9a-fA-F]{24}$/, 'invalid ID')
-    })
+    ...params
 });
 
 export const updatePostSchema = z.object({
-    body: z.object({
-        content: z
-            .string({
-                required_error: 'Content is required'
-            })
-            .min(1, 'Post content must be at least 1 character')
-    }),
-    params: z.object({
-        id: z.string().regex(/^[0-9a-fA-F]{24}$/, 'invalid ID')
-    })
+    ...payload,
+    ...params
 });
 
 export type CreatePostType = z.infer<typeof createPostSchema>['body'];
