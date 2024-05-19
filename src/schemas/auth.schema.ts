@@ -18,8 +18,10 @@ export const signupSchema = z.object({
                 required_error: 'Email is required'
             })
             .email(),
-        password: z.string().min(6, 'Password too short')
+        password: z.string().min(6, 'Password too short'),
+        name: z.string().min(1, 'Name is required')
     })
 });
 
-export type UserInputType = z.infer<typeof signupSchema>['body'];
+export type UserInputType = z.infer<typeof loginSchema>['body'];
+export type UserSignupType = z.infer<typeof signupSchema>['body'];
