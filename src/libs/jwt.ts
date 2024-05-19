@@ -1,7 +1,5 @@
-import { verify } from 'jsonwebtoken';
-import jwt from 'jsonwebtoken';
+import { verify, sign } from 'jsonwebtoken';
 
-import mongoose from 'mongoose';
 const JWT_SECRET = process.env.TOKEN_SECRET || 'token.01010101';
 
 export const verifyToken = (jwt: string) => {
@@ -9,9 +7,9 @@ export const verifyToken = (jwt: string) => {
     return isOk;
 };
 
-export const signToken = async (payload: mongoose.Types.ObjectId): Promise<string> => {
+export const signToken = async (payload: string): Promise<string> => {
     return new Promise((resolve, reject) => {
-        jwt.sign({ payload }, JWT_SECRET, { expiresIn: '1d' }, (err, token) => {
+        sign({ payload }, JWT_SECRET, { expiresIn: '1d' }, (err, token) => {
             if (err) {
                 reject(err);
             } else {
