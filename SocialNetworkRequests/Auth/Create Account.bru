@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{baseUrl}}/signup
+  url: {{baseUrl}}/auth/signup
   body: json
   auth: none
 }
@@ -13,13 +13,15 @@ post {
 body:json {
   {
     "email": "{{email}}",
-    "password": "{{password}}"
+    "password": "{{password}}",
+    "name": "{{example}}"
   }
 }
 
 vars:pre-request {
   email: example@email.com
   password: Password123
+  example: Example
 }
 
 assert {
