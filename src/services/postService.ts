@@ -1,7 +1,6 @@
-import IPost from '../interfaces/post.interface';
 import Post from '../models/post.model';
 
-import { CreatePostType } from '../schemas/post.schema';
+import { CreatePostType, UpdatePostBodyType } from '../schemas/post.schema';
 
 export const getListPosts = async (id: string) => {
     const posts = await Post.find({ userId: id });
@@ -28,7 +27,7 @@ export const deleteSinglePost = async (id: string) => {
     return postFound;
 };
 
-export const updateSinglePost = async (id: string, updatedData: IPost) => {
+export const updateSinglePost = async (id: string, updatedData: UpdatePostBodyType) => {
     const task = await Post.findByIdAndUpdate(id, updatedData, { new: true });
     return task;
 };
