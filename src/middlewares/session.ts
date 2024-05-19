@@ -1,9 +1,8 @@
-import { NextFunction, Response } from 'express';
-import { RequestExt } from '../interfaces/req-ext';
+import { NextFunction, Response, Request } from 'express';
 import jwt from 'jsonwebtoken';
 const JWT_SECRET = process.env.TOKEN_SECRET || 'token.01010101';
 
-export const checkJwt = (req: RequestExt, res: Response, next: NextFunction) => {
+export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
     const { token } = req.cookies;
 
     if (!token) return res.status(401).json({ message: 'No token, authorization denied' });
@@ -14,7 +13,7 @@ export const checkJwt = (req: RequestExt, res: Response, next: NextFunction) => 
             return res.status(401).json({ message: 'Token is not valid' });
         }
 
-        req.user = user.payload;
+        res.locals.user = user.payload;
         next();
     });
 };
