@@ -8,10 +8,10 @@ import { checkJwt } from '../middlewares/session';
 
 const router = Router();
 
-router.get('/posts', checkJwt, tryCatch(getPosts));
-router.get('/posts/:id', checkJwt, validateResource(getPostSchema), tryCatch(getPost));
-router.post('/posts', checkJwt, validateResource(createPostSchema), tryCatch(createPost));
-router.put('/posts/:id', checkJwt, validateResource(updatePostSchema), tryCatch(updatePost));
-router.delete('/posts/:id', checkJwt, validateResource(deletePostSchema), tryCatch(deletePost));
+router.get('/', checkJwt, tryCatch(getPosts));
+router.get('/:id', checkJwt, validateResource(getPostSchema), tryCatch(getPost));
+router.post('/', checkJwt, validateResource(createPostSchema), tryCatch(createPost));
+router.put('/:id', checkJwt, validateResource(updatePostSchema), tryCatch(updatePost));
+router.delete('/:id', checkJwt, validateResource(deletePostSchema), tryCatch(deletePost));
 
 export default router;

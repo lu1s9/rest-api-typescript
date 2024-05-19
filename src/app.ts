@@ -3,8 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { routeNotFound } from './middlewares/routeNotFound';
 
-import authRoutes from './routes/auth.routes';
-import postRoutes from './routes/post.routes';
+import routes from './routes/index.routes';
 import errorHandler from './middlewares/errorHandler';
 
 const application = express();
@@ -18,8 +17,7 @@ application.use(
 application.use(express.json());
 application.use(cookieParser());
 
-application.use('/api/', authRoutes);
-application.use('/api/', postRoutes);
+application.use('/api/v1', routes);
 
 application.use(routeNotFound);
 application.use(errorHandler);
