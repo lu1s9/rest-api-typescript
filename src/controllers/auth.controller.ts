@@ -28,9 +28,8 @@ export const signup = async (req: Request<unknown, unknown, UserSignupType>, res
     res.cookie('token', token, {
         sameSite: 'none'
     });
-    res.cookie('id', userCreated.id, { sameSite: 'none' });
 
-    res.status(200).json({ token, email: userCreated.email, id: userCreated._id });
+    res.status(200).json({ name: userCreated.name, id: userCreated._id });
 };
 
 export const login = async (req: Request<unknown, unknown, UserInputType>, res: Response) => {
@@ -53,8 +52,7 @@ export const login = async (req: Request<unknown, unknown, UserInputType>, res: 
     res.cookie('token', token, {
         sameSite: 'none'
     });
-    res.cookie('id', userFound.id, { sameSite: 'none' });
-    res.status(200).json({ token, email: userFound.email, id: userFound._id });
+    res.status(200).json({ name: userFound.name, id: userFound._id });
 };
 
 export const profile = async (req: Request, res: Response) => {
