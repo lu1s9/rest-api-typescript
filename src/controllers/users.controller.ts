@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { getFriendsService, getListUsers } from '../services/userService';
-import { CreateFriendshipType } from '../schemas/friendship.schema';
+import { deleteFriendService, getFriendsService, getListUsers, updateFriendship } from '../services/userService';
+import { CreateFriendshipType, GetFriendshipParamsType, UpdateFriendshipType } from '../schemas/friendship.schema';
 import { createFriendship } from '../services/userService';
 import logger from '../libs/logger';
 
@@ -21,4 +21,23 @@ export const getFriendsController = async (req: Request, res: Response) => {
     const friendsList = await getFriendsService(`${res.locals.user}`);
     logger.info(friendsList);
     return res.status(200).json(friendsList);
+};
+
+export const updateFriendshipController = async (req: Request<GetFriendshipParamsType, unknown, UpdateFriendshipType>, res: Response) => {
+    const friendship = await updateFriendship(req.params.id, req.body);
+    if (!friendship) {
+        res.status(404);
+        throw new Error('Friendship not found');
+    }
+    return res.status(200).json(friendship);
+};
+
+export const deleteFriendshipController = async (req: Request<GetFriendshipParamsType>, res: Response) => {
+    const friendship = await deleteFriendService(req.params.id);
+
+    if (!friendship) {
+        res.status(404);
+        throw new Error('Friendship not found');
+    }
+    return res.status(200).json(friendship);
 };
