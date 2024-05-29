@@ -3,6 +3,7 @@ import { getPosts, getPost, createPost, updatePost, deletePost } from '../contro
 import tryCatch from '../libs/tryCatch';
 import { validateResource } from '../middlewares/validateResource';
 import { createPostSchema, deletePostSchema, getPostSchema, updatePostSchema } from '../schemas/post.schema';
+import { likePost } from '../controllers/likes.controller';
 
 import { checkJwt } from '../middlewares/session';
 
@@ -14,4 +15,5 @@ router.post('/', checkJwt, validateResource(createPostSchema), tryCatch(createPo
 router.put('/:id', checkJwt, validateResource(updatePostSchema), tryCatch(updatePost));
 router.delete('/:id', checkJwt, validateResource(deletePostSchema), tryCatch(deletePost));
 
+router.patch('/:id/like', checkJwt, validateResource(getPostSchema), tryCatch(likePost));
 export default router;

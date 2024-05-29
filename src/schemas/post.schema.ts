@@ -37,3 +37,4 @@ export type CreatePostType = z.infer<typeof createPostSchema>['body'];
 export type UpdatePostBodyType = z.infer<typeof updatePostSchema>['body'];
 export type UpdatePostParamsType = z.infer<typeof updatePostSchema>['params'];
 export type DeletePostParamsType = z.infer<typeof deletePostSchema>['params'];
+export type GetPostParams = z.infer<typeof getPostSchema>['params'];
